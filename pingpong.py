@@ -8,8 +8,6 @@ import random
 import time
 import numpy
 
-RANDOM_CHARS = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
-
 
 def pong_server(host, port):
 	sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -43,7 +41,7 @@ def pong_server(host, port):
 						conn.send("pong ")
 						while pong_size > 0:
 							chunk_size = min(pong_size, 4096)
-							data = string.join([random.choice(RANDOM_CHARS) for x in range(chunk_size)], '')
+							data = 'Y' * chunk_size
 							conn.send(data)
 							pong_size -= chunk_size
 						conn.send("\n")
@@ -79,7 +77,7 @@ def ping(host, port, ping_size = 10, pong_size = 500000, seconds = 10):
 				data_left = ping_size
 				while data_left > 0:
 					chunk_size = min(data_left, 4096)
-					data = string.join([random.choice(RANDOM_CHARS) for x in range(chunk_size)], '')
+					data = 'X' * chunk_size
 					sock.send(data)
 					data_left -= chunk_size
 				sock.send("\n")
